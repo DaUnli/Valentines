@@ -17,6 +17,45 @@ body {
   margin-top: 20px;
   margin-bottom: 0;
 }
+ 
+/* image */
+
+.marquee {
+  overflow: hidden;
+  width: 100%;
+  background: #f9f9f9;
+  padding: 20px 0;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
+.marquee img {
+  width: 60px;
+  height: auto;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.marquee img:hover {
+  opacity: 1;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* image-end */
+
 
 #noButton {
   position: absolute;
