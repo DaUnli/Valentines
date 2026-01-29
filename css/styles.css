@@ -1,4 +1,6 @@
 body {
+  margin: 0;
+  padding: 0;
   height: 95vh;
   background-image: url("/images/image1.jpg");
   background-size: cover;
@@ -17,68 +19,78 @@ body {
   margin-top: 20px;
   margin-bottom: 0;
 }
- 
-/* image */
 
-.marquee {
-  overflow: hidden;
-  width: 100%;
-  background: #f9f9f9;
-  padding: 20px 0;
-}
 
-.marquee-track {
+.slider_container {
   display: flex;
-  gap: 40px;
-  width: max-content;
-  animation: scroll 20s linear infinite;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  gap: 20px;
 }
 
-.marquee img {
-  width: 60px;
-  height: auto;
-  opacity: 0.7;
-  transition: opacity 0.3s;
+.slider {
+  width: 250px;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+  border: #d14d72 2px solid;
+  border-radius: 10px
 }
 
-.marquee img:hover {
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.slide.active {
   opacity: 1;
 }
 
-@keyframes scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* image-end */
 
 
-#noButton {
-  position: absolute;
-  margin-left: 150px;
-  transition: 0.5s;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+.buttons {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
 }
 
 #yesButton {
-  position: absolute;
-  margin-right: 150px;
+  position: relative; 
+  z-index: 2;
 }
 
-.buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  margin-left: 20px;
+#noButton {
+  position: absolute; 
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.3s ease;
 }
+
+
 
 .btn {
-  background-color: #ffffff;
+  background-color: #FCC8D1 ;
   color: rgb(233, 48, 48);
   padding: 15px 32px;
   text-align: center;
@@ -89,13 +101,7 @@ body {
   border: none;
   border-radius: 12px;
   transition: background-color 0.3s ease;
-}
-
-.gif_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+} */
 
 @media only screen and (max-width: 320px) and (max-height: 568px) {
   body {
