@@ -1,0 +1,189 @@
+import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/effect-cards";
+import { EffectCards, Pagination } from "swiper/modules";
+import confetti from "canvas-confetti";
+
+const Home = () => {
+  const [reply, setReply] = useState("");
+  const [status, setStatus] = useState("");
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
+  // Celebrate YES
+  const celebrate = () => {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.7 },
+      colors: ["#ff4d6d", "#ffffff"],
+    });
+    alert("I knew you'd say yes! Happy Valentine's Day! ❤️");
+  };
+
+  // Send reply
+  const simpleSend = () => {
+    if (reply.trim() !== "") {
+      setStatus("Your message has been saved in my heart! ❤️");
+      setReply("");
+      setTimeout(() => setStatus(""), 4000);
+    } else {
+      alert("Please write something first! 😊");
+    }
+  };
+
+  return (
+    <div className="font-sans bg-[#fdfaf6] text-[#2d2d2d]">
+      {/* Hero Section */}
+      <section
+        className="flex flex-col items-center justify-center min-h-screen text-center bg-cover bg-center px-4"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1350&q=80')",
+        }}
+      >
+        <div data-aos="fade-down">
+          <h1 className="text-4xl sm:text-6xl font-[Dancing Script] text-[#ff4d6d] mb-3 drop-shadow-md">
+            A Letter to the Best Girl Ever
+          </h1>
+          <p className="uppercase tracking-widest text-gray-700 text-sm sm:text-base">
+            Happy Valentine's Day
+          </p>
+        </div>
+        <a
+          href="#gallery"
+          className="mt-6 bg-[#ff4d6d] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold shadow-lg hover:scale-105 transition-transform"
+        >
+          Start mo
+        </a>
+      </section>
+
+      {/* Gallery Section */}
+      <section id="gallery" className="flex flex-col items-center py-16 sm:py-20 px-4">
+        <h2
+          data-aos="fade-up"
+          className="text-2xl sm:text-4xl font-[Dancing Script] text-[#ff4d6d] mb-8 sm:mb-10 bg-gradient-to-r from-pink-400 to-pink-600 bg-clip-text text-transparent drop-shadow-md"
+        >
+          Best Memories
+        </h2>
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 justify-center">
+          {[...Array(2)].map((_, idx) => (
+            <Swiper
+              key={idx}
+              modules={[EffectCards, Pagination]}
+              effect="cards"
+              grabCursor
+              pagination={{ clickable: true }}
+              className="w-72 sm:w-80 h-80 sm:h-96 mb-6 sm:mb-0"
+            >
+              {["2019", "2022", "2024"].map((year, idy) => (
+                <SwiperSlide
+                  key={idy}
+                  className="bg-white p-2 rounded-lg shadow-lg"
+                >
+                  <img
+                    src={`/images/img${idy + 1}.JPG`}
+                    alt={year}
+                    className="w-full h-auto rounded-md object-cover aspect-[3/4]"
+                  />
+                  <span className="block mt-2 text-[#ff4d6d] font-[Dancing Script] text-lg sm:text-xl drop-shadow-md">
+                    {year}
+                  </span>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ))}
+        </div>
+      </section>
+
+      {/* Letter Section */}
+      <section className="py-12 sm:py-20 flex justify-center px-4">
+        <div className="max-w-2xl px-5 text-center" data-aos="fade-up">
+          <p className="mb-4 text-sm sm:text-base">
+            On this special day of love and affection, I want to take a moment
+            to express my undying love for you. You are my soulmate, my best
+            friend, and my life partner.
+          </p>
+          <span className="block font-[Dancing Script] text-[#ff4d6d] text-base sm:text-xl my-4">
+            Hindi ko man masabi agad ang lahat, pero gusto kitang ligawan—
+            makilala ka nang mas mabuti, maging malapit sa isa't-isa, at
+            unti-unting patunayan ang aking intensyon.
+          </span>
+          <p className="text-sm sm:text-base">
+            Bawat simpleng bagay, sa bawat oras na gustong makasama ka, at sa
+            bawat pagkakataong mapasaya kita, ipaparamdam ko sa’yo na ikaw ang
+            pinakamahalaga sa akin.
+          </p>
+        </div>
+      </section>
+
+      {/* Valentine Ask Section */}
+      <section className="py-12 sm:py-20 bg-[#fff0f3] flex justify-center px-4">
+        <div
+          className="max-w-xl w-full p-6 sm:p-8 border-2 border-dashed border-[#ff4d6d] rounded-2xl bg-white text-center"
+          data-aos="fade-up"
+        >
+          <h2 className="text-2xl sm:text-4xl mb-6 font-[Dancing Script] bg-gradient-to-r from-pink-400 to-pink-600 bg-clip-text text-transparent drop-shadow-md">
+            Will you be my Valentine?
+          </h2>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
+            <button
+              onClick={celebrate}
+              className="bg-[#ff4d6d] text-white px-6 py-3 rounded-full font-bold shadow-md hover:scale-105 transition-transform"
+            >
+              YES! ❤️
+            </button>
+            <button className="bg-gray-400 text-white px-6 py-3 rounded-full font-bold cursor-not-allowed">
+              No
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer / Reply Section */}
+      <footer className="bg-white py-12 sm:py-16 text-center px-4">
+        <div className="max-w-2xl mx-auto" data-aos="zoom-in">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+            You are the love of my life
+          </h2>
+          <p className="text-sm sm:text-base">
+            I will stand by your side, hold your hand, and love you
+            unconditionally through thick and thin.
+          </p>
+
+          <div className="mt-6 sm:mt-8">
+            <h3 className="font-[Dancing Script] text-xl sm:text-2xl mb-2">
+              put a message response
+            </h3>
+            <textarea
+              value={reply}
+              onChange={(e) => setReply(e.target.value)}
+              placeholder="Write your sweet message here..."
+              className="w-full max-w-md h-20 sm:h-24 border-2 border-[#ff4d6d] rounded-xl p-3 mb-3 outline-none text-sm sm:text-base"
+            ></textarea>
+            <br />
+            <button
+              onClick={simpleSend}
+              className="bg-[#ff4d6d] text-white px-6 py-3 rounded-full font-bold shadow-md hover:scale-105 transition-transform"
+            >
+              Send Message
+            </button>
+            {status && <div className="mt-3 font-bold text-[#ff4d6d]">{status}</div>}
+          </div>
+
+          <p className="font-[Dancing Script] text-xl sm:text-2xl mt-8 sm:mt-10 drop-shadow-md">
+            to:
+            EJ
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Home;
