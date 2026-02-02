@@ -1,297 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>A Letter to the Best Girl Ever</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-    <style>
-        :root {
-            --primary-pink: #ff4d6d;
-            --soft-cream: #fdfaf6;
-            --text-dark: #2d2d2d;
-        }
-
-        /* Prevent horizontal scroll on mobile */
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-            background-color: var(--soft-cream);
-            color: var(--text-dark);
-            font-family: 'Montserrat', sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 15px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        h1, h2, .script-font {
-            font-family: 'Dancing Script', cursive;
-            color: var(--primary-pink);
-        }
-
-        /* Hero Design */
-        .hero {
-            background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), 
-                        url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 10px; }
-        .hero p { font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; }
-
-        /* Photo Gallery Design */
-        .swiper {
-            width: 85%;
-            max-width: 400px;
-            padding: 30px 0 50px;
-        }
-
-        .swiper-slide {
-            background: white;
-            padding: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-radius: 12px;
-            box-sizing: border-box;
-        }
-
-        .swiper-slide img {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 3/4;
-            object-fit: cover;
-            border-radius: 8px;
-            display: block;
-        }
-
-        .year-label {
-            font-size: 1.5rem;
-            display: block;
-            margin-top: 10px;
-            font-family: 'Dancing Script', cursive;
-            color: var(--primary-pink);
-        }
-
-        /* Message Styling */
-        .message-box {
-            width: 100%;
-            max-width: 600px;
-            line-height: 1.6;
-            font-size: 1.1rem;
-            padding: 0 10px;
-        }
-
-        .highlight-text {
-            font-weight: 700;
-            color: var(--primary-pink);
-            display: block;
-            margin: 15px 0;
-            font-size: 1.3rem;
-        }
-
-        /* Button Design */
-        .btn-valentine {
-            background-color: var(--primary-pink);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 15px;
-            box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
-            /* Better touch for iOS */
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn-valentine:active {
-            transform: scale(0.95);
-        }
-
-        /* Footer Response Box */
-        textarea {
-            width: 90%;
-            max-width: 450px;
-            height: 100px;
-            border: 2px solid var(--primary-pink);
-            border-radius: 15px;
-            padding: 12px;
-            font-family: 'Montserrat', sans-serif;
-            margin-top: 15px;
-            resize: none;
-            outline: none;
-            font-size: 1rem;
-        }
-
-        /* Specific Mobile Fixes */
-        @media (max-width: 480px) {
-            section { padding: 30px 10px; }
-            .hero h1 { font-size: 2.2rem; }
-            .message-box { font-size: 1rem; }
-            .swiper { width: 90%; }
-            .valentine-ask-container { padding: 20px !important; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine Admin Panel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff0f3;
+      color: #2d2d2d;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #ff4d6d;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h2 {
+      color: #ff4d6d;
+    }
+    .section {
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      border-bottom: 1px solid #eee;
+      padding: 0.5rem 0;
+    }
+    .count {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ff4d6d;
+    }
+    button {
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #e63c5f;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Valentine Admin Panel</h1>
+  </header>
 
-    <section class="hero">
-        <div data-aos="fade-down">
-            <h1>A Letter to the Best Girl Ever</h1>
-            <p>Happy Valentine's Day</p>
-        </div>
-        <a href="#gallery" class="btn-valentine">Start mo</a>
-    </section>
+  <main>
+    <!-- YES COUNT -->
+    <div class="section">
+      <h2>Total YES Clicks:</h2>
+      <div class="count" id="yesCount">Loading...</div>
+      <button onclick="loadYesCount()">Refresh</button>
+    </div>
 
-    <section id="gallery">
-        <h2 data-aos="fade-up">Best you</h2>
-        <div style="display: flex; gap: 100px;">
-          <div class="swiper" data-aos="zoom-in">
-            <h2>You</h2>
-              <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                      <img src="/images/img2.JPG" alt="2019">
-                      <span class="year-label">2019</span>
-                  </div>
-                  <div class="swiper-slide">
-                      <img src="/images/img1.JPG" alt="2022">
-                      <span class="year-label">2022</span>
-                  </div>
-                  <div class="swiper-slide">
-                      <img src="/images/img3.JPG" alt="2024">
-                      <span class="year-label">2024</span>
-                  </div>
-              </div>
-              <div class="swiper-pagination"></div>
-          </div>
-          <div class="swiper" data-aos="zoom-in">
-            <h2>Us</h2>
-              <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                      <img src="/images/img2.JPG" alt="2019">
-                      <span class="year-label">2019</span>
-                  </div>
-                  <div class="swiper-slide">
-                      <img src="/images/img1.JPG" alt="2022">
-                      <span class="year-label">2022</span>
-                  </div>
-                  <div class="swiper-slide">
-                      <img src="/images/img3.JPG" alt="2024">
-                      <span class="year-label">2024</span>
-                  </div>
-              </div>
-              <div class="swiper-pagination"></div>
-          </div>
-        </div>
-    </section>
+    <!-- MESSAGES -->
+    <div class="section">
+      <h2>Messages Received:</h2>
+      <ul id="messagesList">
+        <li>Loading...</li>
+      </ul>
+      <button onclick="loadMessages()">Refresh</button>
+    </div>
+  </main>
 
-    <section id="letter">
-        <div class="message-box" data-aos="fade-up">
-            <p>On this special day of love and affection, I want to take a moment to express my undying love for you. You are my soulmate, my best friend, and my life partner.</p>
-            <span class="highlight-text">
-               Hindi ko man masabi agad ang lahat, pero gusto kitang ligawan—makilala ka nang mas mabuti, maging malapit sa isa't-isa, at unti-unting patunayan ang aking intensyon.
-            </span>
-            <p>Bawat simpleng bagay, sa bawat oras na gustong makasama ka, at sa bawat pagkakataong mapasaya kita, ipaparamdam ko sa’yo na ikaw ang pinakamahalaga sa akin.</p>
-        </div>
-    </section>
+  <script>
+    const API_URL = "http://localhost:5000";
 
-    <section style="background-color: #fff0f3;">
-        <div class="message-box" data-aos="fade-up">
-            <div class="valentine-ask-container" style="padding: 30px; border: 2px dashed #ff4d6d; border-radius: 20px; background: white;">
-                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Will you be my Valentine?</h2>
-                <div style="position: relative; min-height: 100px; display: flex; justify-content: center; align-items: center; gap: 10px;">
-                    <button onclick="celebrate()" class="btn-valentine">YES! ❤️</button>
-                    <button id="noButton" onmouseover="moveButton()" onclick="moveButton()" class="btn-valentine" style="background-color: #999; box-shadow: none;">No</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    // Load YES count
+    async function loadYesCount() {
+      try {
+        const res = await fetch(`${API_URL}/api/yes-count`);
+        const data = await res.json();
+        document.getElementById("yesCount").textContent = data.count;
+      } catch (err) {
+        document.getElementById("yesCount").textContent = "Error loading count";
+      }
+    }
 
-    <footer style="padding: 60px 10px; background: white; text-align: center;">
-        <div class="message-box" data-aos="zoom-in" style="margin: 0 auto;">
-            <h2 style="font-size: 2rem;">You are the love of my life</h2>
-            <p>I will stand by your side, hold your hand, and love you unconditionally through thick and thin.</p>
-
-            <div style="margin-top: 30px;">
-                <h3 class="script-font" style="font-size: 1.5rem;">Reply to Ejay:</h3>
-                <textarea id="replyBox" placeholder="Write your sweet message here..."></textarea>
-                <br>
-                <button onclick="simpleSend()" class="btn-valentine">Send Message</button>
-                <div id="status" style="margin-top: 15px; font-weight: bold; color: var(--primary-pink); font-size: 0.9rem;"></div>
-            </div>
-
-            <p class="script-font" style="font-size: 1.8rem; margin-top: 40px;">
-                May our love continue to blossom forever.<br>
-                With all my heart,<br>
-                Ejay
-            </p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <script>
-        AOS.init({ duration: 800, once: true });
-
-        const swiper = new Swiper('.swiper', {
-            effect: 'cards',
-            grabCursor: true,
-            pagination: { el: '.swiper-pagination', clickable: true },
+    // Load messages
+    async function loadMessages() {
+      try {
+        const res = await fetch(`${API_URL}/api/messages`);
+        const messages = await res.json();
+        const list = document.getElementById("messagesList");
+        list.innerHTML = "";
+        if (messages.length === 0) {
+          list.innerHTML = "<li>No messages yet.</li>";
+          return;
+        }
+        messages.forEach(msg => {
+          const li = document.createElement("li");
+          li.textContent = `${new Date(msg.createdAt).toLocaleString()}: ${msg.text}`;
+          list.appendChild(li);
         });
+      } catch (err) {
+        document.getElementById("messagesList").innerHTML = "<li>Error loading messages</li>";
+      }
+    }
 
-        function moveButton() {
-            const btn = document.getElementById('noButton');
-            // Restrict movement to within the viewport to keep it visible but hard to catch
-            const x = Math.random() * (window.innerWidth - 80);
-            const y = Math.random() * (window.innerHeight - 40);
-            btn.style.position = 'fixed';
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-            btn.style.zIndex = '9999';
-        }
-
-        function celebrate() {
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.7 },
-                colors: ['#ff4d6d', '#ffffff']
-            });
-            alert("I knew you'd say yes! Happy Valentine's Day! ❤️");
-        }
-
-        function simpleSend() {
-            const box = document.getElementById('replyBox');
-            const status = document.getElementById('status');
-            if(box.value.trim() !== "") {
-                status.innerHTML = "Your message has been saved in my heart! ❤️";
-                box.value = "";
-                setTimeout(() => { status.innerHTML = ""; }, 4000);
-            } else {
-                alert("Please write something first! 😊");
-            }
-        }
-    </script>
+    // Initial load
+    loadYesCount();
+    loadMessages();
+  </script>
 </body>
 </html>

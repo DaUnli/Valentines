@@ -7,6 +7,9 @@ import "swiper/css/effect-cards";
 import { EffectCards, Pagination } from "swiper/modules";
 import confetti from "canvas-confetti";
 
+// 🔗 Add your backend URL here
+const API_URL = "http://localhost:5000";
+
 const Home = () => {
   const [reply, setReply] = useState("");
   const [status, setStatus] = useState("");
@@ -15,25 +18,43 @@ const Home = () => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
-  // Celebrate YES
-  const celebrate = () => {
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.7 },
-      colors: ["#ff4d6d", "#ffffff"],
-    });
-    alert("I knew you'd say yes! Happy Valentine's Day! ❤️");
+  // ✅ Celebrate YES → Save to backend
+  const celebrate = async () => {
+    try {
+      await fetch(`${API_URL}/api/yes`, { method: "POST" });
+
+      // Confetti animation
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.7 },
+        colors: ["#ff4d6d", "#ffffff"],
+      });
+
+      alert("I knew you'd say yes! Happy Valentine's Day! ❤️");
+    } catch (err) {
+      alert("Something went wrong 💔");
+    }
   };
 
-  // Send reply
-  const simpleSend = () => {
-    if (reply.trim() !== "") {
+  // ✅ Send reply → Save to backend
+  const simpleSend = async () => {
+    if (reply.trim() === "") {
+      return alert("Please write something first! 😊");
+    }
+
+    try {
+      await fetch(`${API_URL}/api/message`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: reply }),
+      });
+
       setStatus("Your message has been saved in my heart! ❤️");
       setReply("");
       setTimeout(() => setStatus(""), 4000);
-    } else {
-      alert("Please write something first! 😊");
+    } catch (err) {
+      alert("Something went wrong 💔");
     }
   };
 
@@ -64,7 +85,10 @@ const Home = () => {
       </section>
 
       {/* Gallery Section */}
-      <section id="gallery" className="flex flex-col items-center py-16 sm:py-20 px-4">
+      <section
+        id="gallery"
+        className="flex flex-col items-center py-16 sm:py-20 px-4"
+      >
         <h2
           data-aos="fade-up"
           className="text-2xl sm:text-4xl font-[Dancing Script] text-[#ff4d6d] mb-8 sm:mb-10 bg-gradient-to-r from-pink-400 to-pink-600 bg-clip-text text-transparent drop-shadow-md"
@@ -105,9 +129,8 @@ const Home = () => {
       <section className="py-12 sm:py-20 flex justify-center px-4">
         <div className="max-w-2xl px-5 text-center" data-aos="fade-up">
           <p className="mb-4 text-sm sm:text-base">
-            On this special day of love and affection, I want to take a moment
-            to express my undying love for you. You are my soulmate, my best
-            friend, and my life partner.
+            On this special day of love, I want to take a moment to express my
+            undying love for you.
           </p>
           <span className="block font-[Dancing Script] text-[#ff4d6d] text-base sm:text-xl my-4">
             Hindi ko man masabi agad ang lahat, pero gusto kitang ligawan—
@@ -149,11 +172,16 @@ const Home = () => {
       <footer className="bg-white py-12 sm:py-16 text-center px-4">
         <div className="max-w-2xl mx-auto" data-aos="zoom-in">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-            You are the love of my life
+            Nagmamahal, Goyo.
           </h2>
           <p className="text-sm sm:text-base">
-            I will stand by your side, hold your hand, and love you
-            unconditionally through thick and thin.
+            <strong className="text-30px">Ryzie</strong>,<br /> Sa dami ng
+            nangyayari ngayon, ikaw pa rin ang iniisip ko. Hindi man ako
+            magaling magsalita, gusto kong malaman mo na mahalaga ka sa akin.
+            ikaw ang pahinga ko. Hindi ko alam kung saan ako dadalhin ng bukas,
+            pero sigurado ako sa isang bagay, ikaw ang gusto kong makasama
+            habang hinaharap ito. <br />
+            -Goyo
           </p>
 
           <div className="mt-6 sm:mt-8">
@@ -173,12 +201,13 @@ const Home = () => {
             >
               Send Message
             </button>
-            {status && <div className="mt-3 font-bold text-[#ff4d6d]">{status}</div>}
+            {status && (
+              <div className="mt-3 font-bold text-[#ff4d6d]">{status}</div>
+            )}
           </div>
 
           <p className="font-[Dancing Script] text-xl sm:text-2xl mt-8 sm:mt-10 drop-shadow-md">
-            to:
-            EJ
+            from: EJ
           </p>
         </div>
       </footer>

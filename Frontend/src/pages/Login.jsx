@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import API_URL from "../Api";
 
 const Login = () => {
   const [passcode, setPasscode] = useState("");
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    AOS.init({ duration: 800 });
-  }, []);
+  useEffect(() => { AOS.init({ duration: 800 }); }, []);
 
-  const checkPasscode = () => {
-    const secret = "1234"; // your passcode
-    if (passcode === secret) {
-      window.location.href = "/Home"; // redirect to Home
-    } else {
+  const checkPasscode = async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/check-pin`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pin: passcode }),
+      });
+      if (!res.ok) throw new Error("Invalid");
+      window.location.href = "/Home";
+    } catch {
       setError(true);
       setPasscode("");
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") checkPasscode();
-  };
+  const handleKeyPress = (e) => { if (e.key === "Enter") checkPasscode(); };
 
   return (
     <div className="relative w-full h-screen flex justify-center items-center bg-[#fdfaf6] overflow-hidden font-sans">
-      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{
@@ -35,7 +36,6 @@ const Login = () => {
         }}
       ></div>
 
-      {/* Login Card */}
       <div
         data-aos="zoom-in"
         className="relative z-10 bg-white p-8 sm:p-10 rounded-3xl shadow-lg w-11/12 max-w-sm text-center"
