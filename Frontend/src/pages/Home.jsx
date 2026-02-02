@@ -85,6 +85,7 @@ const Home = () => {
       </section>
 
       {/* Gallery Section */}
+      {/* Gallery Section */}
       <section
         id="gallery"
         className="flex flex-col items-center py-16 sm:py-20 px-4"
@@ -95,33 +96,88 @@ const Home = () => {
         >
           Best Memories
         </h2>
-        <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 justify-center">
-          {[...Array(2)].map((_, idx) => (
-            <Swiper
-              key={idx}
-              modules={[EffectCards, Pagination]}
-              effect="cards"
-              grabCursor
-              pagination={{ clickable: true }}
-              className="w-72 sm:w-80 h-80 sm:h-96 mb-6 sm:mb-0"
-            >
-              {["2019", "2022", "2024"].map((year, idy) => (
-                <SwiperSlide
-                  key={idy}
-                  className="bg-white p-2 rounded-lg shadow-lg"
-                >
-                  <img
-                    src={`/images/img${idy + 1}.JPG`}
-                    alt={year}
-                    className="w-full h-auto rounded-md object-cover aspect-[3/4]"
-                  />
-                  <span className="block mt-2 text-[#ff4d6d] font-[Dancing Script] text-lg sm:text-xl drop-shadow-md">
-                    {year}
-                  </span>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ))}
+
+        <div className="flex flex-col gap-12">
+          {/* SWIPER 1 - Rounded Cards */}
+          <Swiper
+            modules={[EffectCards, Pagination]}
+            effect="cards"
+            grabCursor
+            pagination={{ clickable: true }}
+            className="w-72 sm:w-80 h-80 sm:h-96 mx-auto"
+            data-aos="fade-right"
+          >
+            {["2019", "2022", "2024"].map((_, idy) => (
+              <SwiperSlide
+                key={idy}
+                className="bg-white p-2 rounded-full shadow-lg flex flex-col items-center justify-center"
+              >
+                {/* Name at top */}
+                <span className="text-[#ff4d6d] font-[Dancing Script] text-lg sm:text-xl mb-2">
+                  Ryzie
+                </span>
+                <img
+                  src={`/images/img${idy + 1}.JPG`}
+                  alt="Ryzie"
+                  className="w-full h-auto rounded-full object-cover aspect-square border-4 border-pink-300"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* SWIPER 2 - Polaroid Style */}
+          <Swiper
+            modules={[EffectCards, Pagination]}
+            effect="cards"
+            grabCursor
+            pagination={{ clickable: true }}
+            className="w-72 sm:w-80 h-80 sm:h-96 mx-auto"
+            data-aos="fade-left"
+          >
+            {["2019", "2022", "2024"].map((_, idy) => (
+              <SwiperSlide
+                key={idy}
+                className="bg-white p-3 shadow-2xl transform rotate-[-2deg] hover:rotate-0 transition-all"
+              >
+                {/* Name at top */}
+                <span className="text-[#ff4d6d] font-[Dancing Script] text-lg sm:text-xl mb-2 block text-center">
+                  Ryzie
+                </span>
+                <img
+                  src={`/images/img${idy + 1}.JPG`}
+                  alt="Ryzie"
+                  className="w-full h-auto rounded-lg object-cover aspect-[4/5] border-2 border-gray-300 shadow-md"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* SWIPER 3 - Shadow Stack */}
+          <Swiper
+            modules={[EffectCards, Pagination]}
+            effect="cards"
+            grabCursor
+            pagination={{ clickable: true }}
+            className="w-72 sm:w-80 h-80 sm:h-96 mx-auto"
+            data-aos="fade-up"
+          >
+            {["2019", "2022", "2024"].map((_, idy) => (
+              <SwiperSlide
+                key={idy}
+                className="bg-white p-2 rounded-lg shadow-xl flex flex-col items-center justify-center"
+              >
+                {/* Name at top */}
+                <span className="text-[#ff4d6d] font-[Dancing Script] text-lg sm:text-xl mb-2">
+                  Ryzie
+                </span>
+                <img
+                  src={`/images/img${idy + 1}.JPG`}
+                  alt="Ryzie"
+                  className="w-full h-auto rounded-lg object-cover aspect-[3/4] shadow-2xl transform scale-[0.95] hover:scale-100 transition-transform"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </section>
 
