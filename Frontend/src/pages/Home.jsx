@@ -114,7 +114,7 @@ const Home = () => {
           data-aos="fade-up"
           className="text-2xl sm:text-4xl font-[Dancing Script] text-[#ff4d6d] mb-8 sm:mb-10 bg-gradient-to-r from-pink-400 to-pink-600 bg-clip-text text-transparent drop-shadow-md"
         >
-          Best Memories
+          Pure Beauty
         </h2>
 
         <div className="flex flex-col gap-12">
