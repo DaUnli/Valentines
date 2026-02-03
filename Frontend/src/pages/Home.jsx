@@ -6,9 +6,8 @@ import "swiper/css";
 import "swiper/css/effect-cards";
 import { EffectCards, Pagination } from "swiper/modules";
 import confetti from "canvas-confetti";
+import API_URL from "../Api";
 
-// 🔗 Add your backend URL here
-const API_URL = "http://localhost:5000";
 
 const Home = () => {
   const [reply, setReply] = useState("");
