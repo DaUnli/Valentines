@@ -14,7 +14,7 @@ const Home = () => {
   const [reply, setReply] = useState("");
   const [status, setStatus] = useState("");
 
-    // 📩 Admin messages state
+  // 📩 Admin messages state
   const [messages, setMessages] = useState([]);
   const [loadingMessages, setLoadingMessages] = useState(true);
   const [messagesError, setMessagesError] = useState("");
@@ -293,15 +293,19 @@ const Home = () => {
             Messages 💌
           </h2>
 
+          {/* Refresh Button */}
+          <button
+            onClick={loadMessages}
+            className="mb-4 bg-[#ff4d6d] text-white px-4 py-2 rounded-full font-bold hover:scale-105 transition-transform"
+          >
+            Refresh
+          </button>
+
           {loadingMessages && <p>Loading messages...</p>}
 
-          {!loadingMessages && messages.length === 0 && (
-            <p>No messages yet.</p>
-          )}
+          {!loadingMessages && messages.length === 0 && <p>No messages yet.</p>}
 
-          {messagesError && (
-            <p className="text-red-500">{messagesError}</p>
-          )}
+          {messagesError && <p className="text-red-500">{messagesError}</p>}
 
           <ul className="space-y-3 text-sm">
             {messages.map((msg, index) => (
