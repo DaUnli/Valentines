@@ -144,7 +144,7 @@ const Home = () => {
                   Ryzie
                 </span>
                 <img
-                  src={`/images/img${idy + 1}.JPG`}
+                  src={`/images/pic${idy + 1}.jpg`}
                   alt="Ryzie"
                   className="w-full h-auto rounded-lg object-cover aspect-[4/5] border-2 border-gray-300 shadow-md"
                 />
@@ -171,7 +171,7 @@ const Home = () => {
                   Ryzie
                 </span>
                 <img
-                  src={`/images/img${idy + 1}.JPG`}
+                  src={`/images/image${idy + 1}.JPG`}
                   alt="Ryzie"
                   className="w-full h-auto rounded-lg object-cover aspect-[3/4] shadow-2xl transform scale-[0.95] hover:scale-100 transition-transform"
                 />
