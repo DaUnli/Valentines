@@ -66,61 +66,102 @@
   </header>
 
   <main>
-    <!-- YES COUNT -->
-    <div class="section">
-      <h2>Total YES Clicks:</h2>
-      <div class="count" id="yesCount">Loading...</div>
-      <button onclick="loadYesCount()">Refresh</button>
-    </div>
+  <!-- YES COUNT -->
+  <div class="section">
+    <h2>Total YES Clicks:</h2>
+    <div class="count" id="yesCount">Loading...</div>
+    <button onclick="loadYesCount()">Refresh</button>
+  </div>
 
-    <!-- MESSAGES -->
-    <div class="section">
-      <h2>Messages Received:</h2>
-      <ul id="messagesList">
-        <li>Loading...</li>
-      </ul>
-      <button onclick="loadMessages()">Refresh</button>
-    </div>
-  </main>
+  <!-- MESSAGES -->
+  <div class="section">
+    <h2>Messages Received:</h2>
+    <ul id="messagesList">
+      <li>Loading...</li>
+    </ul>
+    <button onclick="loadMessages()">Refresh</button>
+  </div>
 
-  <script>
-    const API_URL = "http://localhost:5000";
+  <!-- ADMIN MESSAGE INPUT -->
+  <div class="section">
+    <h2>Send a New Message:</h2>
+    <textarea id="adminMessage" rows="3" style="width: 100%; padding:0.5rem; border-radius:0.5rem; border:1px solid #ccc;" placeholder="Type your message here..."></textarea>
+    <button onclick="sendAdminMessage()" style="margin-top:1rem;">Send Message</button>
+    <p id="sendStatus" style="margin-top:0.5rem;"></p>
+  </div>
+</main>
 
-    // Load YES count
-    async function loadYesCount() {
-      try {
-        const res = await fetch(`${API_URL}/api/yes-count`);
-        const data = await res.json();
-        document.getElementById("yesCount").textContent = data.count;
-      } catch (err) {
-        document.getElementById("yesCount").textContent = "Error loading count";
+<script>
+  const API_URL = "http://localhost:5000";
+
+  // Load YES count
+  async function loadYesCount() {
+    try {
+      const res = await fetch(`${API_URL}/api/yes-count`);
+      const data = await res.json();
+      document.getElementById("yesCount").textContent = data.count;
+    } catch (err) {
+      document.getElementById("yesCount").textContent = "Error loading count";
+    }
+  }
+
+  // Load messages
+  async function loadMessages() {
+    try {
+      const res = await fetch(`${API_URL}/api/messages`);
+      const messages = await res.json();
+      const list = document.getElementById("messagesList");
+      list.innerHTML = "";
+      if (messages.length === 0) {
+        list.innerHTML = "<li>No messages yet.</li>";
+        return;
       }
+      messages.forEach(msg => {
+        const li = document.createElement("li");
+        li.textContent = `${new Date(msg.createdAt).toLocaleString()}: ${msg.text}`;
+        list.appendChild(li);
+      });
+    } catch (err) {
+      document.getElementById("messagesList").innerHTML = "<li>Error loading messages</li>";
+    }
+  }
+
+  // Send admin message
+  async function sendAdminMessage() {
+    const text = document.getElementById("adminMessage").value.trim();
+    const status = document.getElementById("sendStatus");
+    if (!text) {
+      status.textContent = "Message cannot be empty.";
+      status.style.color = "red";
+      return;
     }
 
-    // Load messages
-    async function loadMessages() {
-      try {
-        const res = await fetch(`${API_URL}/api/messages`);
-        const messages = await res.json();
-        const list = document.getElementById("messagesList");
-        list.innerHTML = "";
-        if (messages.length === 0) {
-          list.innerHTML = "<li>No messages yet.</li>";
-          return;
-        }
-        messages.forEach(msg => {
-          const li = document.createElement("li");
-          li.textContent = `${new Date(msg.createdAt).toLocaleString()}: ${msg.text}`;
-          list.appendChild(li);
-        });
-      } catch (err) {
-        document.getElementById("messagesList").innerHTML = "<li>Error loading messages</li>";
-      }
-    }
+    try {
+      const res = await fetch(`${API_URL}/api/message`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
 
-    // Initial load
-    loadYesCount();
-    loadMessages();
-  </script>
+      const data = await res.json();
+      if (data.success) {
+        status.textContent = "Message sent successfully!";
+        status.style.color = "green";
+        document.getElementById("adminMessage").value = "";
+        loadMessages(); // refresh message list
+      } else {
+        status.textContent = "Failed to send message.";
+        status.style.color = "red";
+      }
+    } catch (err) {
+      status.textContent = "Error sending message.";
+      status.style.color = "red";
+    }
+  }
+
+  // Initial load
+  loadYesCount();
+  loadMessages();
+</script>
 </body>
 </html>

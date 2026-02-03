@@ -14,8 +14,30 @@ const Home = () => {
   const [reply, setReply] = useState("");
   const [status, setStatus] = useState("");
 
+    // 📩 Admin messages state
+  const [messages, setMessages] = useState([]);
+  const [loadingMessages, setLoadingMessages] = useState(true);
+  const [messagesError, setMessagesError] = useState("");
+
+  // 🔄 Load admin messages
+  const loadMessages = async () => {
+    setLoadingMessages(true);
+    setMessagesError("");
+
+    try {
+      const res = await fetch(`${API_URL}/api/messages`);
+      const data = await res.json();
+      setMessages(data);
+    } catch (err) {
+      setMessagesError("Failed to load messages 💔");
+    } finally {
+      setLoadingMessages(false);
+    }
+  };
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
+    loadMessages();
   }, []);
 
   // ✅ Celebrate YES → Save to backend
@@ -84,7 +106,6 @@ const Home = () => {
         </a>
       </section>
 
-      {/* Gallery Section */}
       {/* Gallery Section */}
       <section
         id="gallery"
@@ -189,14 +210,12 @@ const Home = () => {
             undying love for you.
           </p>
           <span className="block font-[Dancing Script] text-[#ff4d6d] text-base sm:text-xl my-4">
-            Hindi ko man masabi agad ang lahat, pero gusto kitang ligawan—
-            makilala ka nang mas mabuti, maging malapit sa isa't-isa, at
-            unti-unting patunayan ang aking intensyon.
+            Hindi ko man masabi agad ang lahat, pero gusto kitang makilala nang
+            mas mabuti, maging malapit sa isa't-isa, at unti-unting patunayan
+            ang aking intensyon.
           </span>
           <p className="text-sm sm:text-base">
-            Bawat simpleng bagay, sa bawat oras na gustong makasama ka, at sa
-            bawat pagkakataong mapasaya kita, ipaparamdam ko sa’yo na ikaw ang
-            pinakamahalaga sa akin.
+            casual lang, chil lang, okay lang, kaya lang.
           </p>
         </div>
       </section>
@@ -242,7 +261,7 @@ const Home = () => {
 
           <div className="mt-6 sm:mt-8">
             <h3 className="font-[Dancing Script] text-xl sm:text-2xl mb-2">
-              put a message response
+              put a message response at date kong kaylan mo gusto na araw.,..,.
             </h3>
             <textarea
               value={reply}
@@ -267,6 +286,38 @@ const Home = () => {
           </p>
         </div>
       </footer>
+      {/* ================= ADMIN MESSAGES (TOP) ================= */}
+      <section className="bg-white py-6 px-4 border-b">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl font-[Dancing Script] text-[#ff4d6d] mb-4">
+            Messages 💌
+          </h2>
+
+          {loadingMessages && <p>Loading messages...</p>}
+
+          {!loadingMessages && messages.length === 0 && (
+            <p>No messages yet.</p>
+          )}
+
+          {messagesError && (
+            <p className="text-red-500">{messagesError}</p>
+          )}
+
+          <ul className="space-y-3 text-sm">
+            {messages.map((msg, index) => (
+              <li
+                key={index}
+                className="border border-pink-300 rounded-xl p-3 bg-[#fff0f3]"
+              >
+                <div className="text-gray-500 text-xs mb-1">
+                  {new Date(msg.createdAt).toLocaleString()}
+                </div>
+                <div>{msg.text}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </div>
   );
 };
